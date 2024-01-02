@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 let userSchema = new mongoose.Schema(
   {
-    first_name: {
+    username: {
       type: String,
       required: true,
     },
@@ -16,6 +16,14 @@ let userSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
+    },
+    is_google_login: {
+      type: Boolean,
+      default: false,
+    },
+    is_facebook_login: {
+      type: Boolean,
+      default: false,
     },
   },
   {

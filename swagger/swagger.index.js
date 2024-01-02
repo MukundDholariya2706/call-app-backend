@@ -33,4 +33,4 @@ const swaggerDoc = {
   paths: {},
 };
 
-module.exports = swaggerDoc;
+module.exports = swaggerDoc;  

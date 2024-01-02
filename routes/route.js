@@ -5,7 +5,7 @@ const userRouter = require("./user.route");
 const RootRouter = express.Router();
 
 RootRouter.use("/", (req, res) => {
-  res.json({ message: "Welcome to call app backend" });
+  res.json({ message: "res.send('Welcome to the API. Visit /api-docs for documentation.');" });
 });
 
 RootRouter.use("/user", userRouter);
