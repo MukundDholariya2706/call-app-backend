@@ -1,0 +1,31 @@
+{
+  "name": "call-app-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MukundDholariya2706/call-app-backend.git"
+  },
+  "author": "Mukund",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MukundDholariya2706/call-app-backend/issues"
+  },
+  "homepage": "https://github.com/MukundDholariya2706/call-app-backend#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3",
+    "socket.io": "^4.7.2"
+  }
+}
