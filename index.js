@@ -17,6 +17,10 @@ app.use(cors());
 
 // app.use(rootRouter);
 
+app.get("/", (req, res) => {
+  res.json({message: 'Call app backend'})
+})
+
 const server = app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
