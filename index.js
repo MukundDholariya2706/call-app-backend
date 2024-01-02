@@ -20,6 +20,10 @@ app.use(cors());
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerDocument));
 app.use(RootRouter);
 
+app.use("/", (req, res) => {
+  res.json({ message: "res.send('Welcome to the API. Visit /api-docs for documentation.');" });
+});
+
 const server = app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

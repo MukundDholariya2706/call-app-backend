@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 
-export const createUserService = async (payload) => {
+const createUserService = async (payload) => {
   try {
     return await User.create(payload);
   } catch (error) {
@@ -8,10 +8,15 @@ export const createUserService = async (payload) => {
   }
 };
 
-export const userFindOneService = async (filter) => {
+const userFindOneService = async (filter) => {
   try {
     return await User.findOne(filter);
   } catch (error) {
     throw error;
   }
+};
+
+module.exports = {
+  createUserService,
+  userFindOneService,
 };
