@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 let userSchema = new mongoose.Schema(
   {
@@ -16,6 +20,7 @@ let userSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
+      default: "",
     },
     is_google_login: {
       type: Boolean,
@@ -30,6 +35,24 @@ let userSchema = new mongoose.Schema(
     timestamps: true, // Enable the timestamps option
   }
 );
+
+userSchema.methods.generateAuthToken = async function () {
+  let user = this;
+  let token = jwt.sign(
+    {
+      _id: user._id.toString(),
+      role: user.role,
+    },
+    process.env.API_SECRET,
+    {
+      expiresIn: "1d",
+    }
+  );
+
+  user.auth_token = token;
+  await user.save();
+  return token;
+};
 
 const User = mongoose.model("user", userSchema, "user");
 module.exports = User;

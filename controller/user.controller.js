@@ -27,4 +27,34 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser };
+const userLogin = async (req, res) => {
+  try {
+    const reqBody = req.body;
+    let user = await userFindOneService({ email: reqBody.email });
+
+    if (!user) {
+      return sendResponse(res, 404, false, "User does not exist", null);
+    }
+
+    if (!bcrypt.compareSync(reqBody.password, user.password)) {
+      return sendResponse(res, 400, false, "Password is invalid", null);
+    }
+
+    const token = await user.generateAuthToken();
+
+    user = user.toObject();
+    delete user.password;
+
+    return sendResponse(res, 200, true, "Login successfully", {
+      user,
+      token,
+    });
+    
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+};
+
+module.exports = { createUser, userLogin };

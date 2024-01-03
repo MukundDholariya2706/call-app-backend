@@ -16,5 +16,4 @@ exports.user_validator = [
     .trim()
     .isLength({ min: 6 })
     .withMessage("Password shuold min 6 length"),
-  body("profileImage").not().isEmpty().withMessage("Profile image is required"),
 ];
