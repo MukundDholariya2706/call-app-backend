@@ -1,4 +1,5 @@
 require("./config/dbConnection");
+const http = require("http");
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -26,8 +27,9 @@ app.use("/", (req, res) => {
   });
 });
 
-const server = app.listen(PORT, () => {
+const server = http.createServer(app);
+socketSetup(server);
+
+server.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
-
-socketSetup(server);
