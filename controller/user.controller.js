@@ -3,6 +3,7 @@ const sendResponse = require("../services/response.service");
 const {
   createUserService,
   userFindOneService,
+  userUpdateService,
 } = require("../services/user.service");
 
 const createUser = async (req, res) => {
@@ -58,8 +59,14 @@ const userLogin = async (req, res) => {
 
 const setAvatar = async (req, res) => {
   try {
-    console.log(req.user, 'req.user')
-    
+    const userId = req.user._id;
+    const avatarImage = req.body.image;
+    const userData = await userUpdateService(userId, {
+      isAvatarImageSet: true,
+      profileImage: avatarImage,
+    });
+
+    return sendResponse(res, 200, true, "Profile avatar updated", userData);
   } catch (error) {
     return sendResponse(res, 500, false, "Something went worng!", {
       message: error.message,

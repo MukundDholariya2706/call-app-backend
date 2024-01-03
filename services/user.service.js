@@ -16,7 +16,16 @@ const userFindOneService = async (filter) => {
   }
 };
 
+const userUpdateService = async (userId, payload) => {
+  try {
+    return await User.findByIdAndUpdate(userId, payload, { new: true });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   createUserService,
   userFindOneService,
+  userUpdateService,
 };
