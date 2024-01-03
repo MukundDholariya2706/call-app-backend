@@ -15,13 +15,15 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerDocument));
 app.use(RootRouter);
 
 app.use("/", (req, res) => {
-  res.json({ message: "res.send('Welcome to the API. Visit /api-docs for documentation.');" });
+  res.json({
+    message: "Welcome to the API. Visit /api-docs for documentation",
+  });
 });
 
 const server = app.listen(PORT, () => {
