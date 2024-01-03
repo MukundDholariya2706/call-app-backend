@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const sendResponse = require("../services/response.service");
+const User = require("../models/user.model");
 const ObjectId = mongoose.Types.ObjectId;
 
 dotenv.config();
@@ -19,8 +20,25 @@ let authenticate = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.API_SECRET);
+
+    const user = await User.aggregate([
+      {
+        $match: {
+          _id: new ObjectId(decoded._id),
+        },
+      },
+    ]);
+
+    if (user.length == 0) {
+      return sendResponse(res, 404, false, "User not found", null);
+    }
+
+    req.user = user[0];
+    next();
   } catch (error) {
-    throw error;
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
   }
 };
 

@@ -13,6 +13,7 @@ let userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
@@ -21,6 +22,10 @@ let userSchema = new mongoose.Schema(
     profileImage: {
       type: String,
       default: "",
+    },
+    isAvatarImageSet: {
+      type: Boolean,
+      default: false,
     },
     is_google_login: {
       type: Boolean,

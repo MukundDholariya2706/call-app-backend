@@ -49,6 +49,16 @@ const userLogin = async (req, res) => {
       user,
       token,
     });
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+};
+
+const setAvatar = async (req, res) => {
+  try {
+    console.log(req.user, 'req.user')
     
   } catch (error) {
     return sendResponse(res, 500, false, "Something went worng!", {
@@ -57,4 +67,4 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { createUser, userLogin };
+module.exports = { createUser, userLogin, setAvatar };
