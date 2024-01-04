@@ -1,7 +1,16 @@
-const socketio = require("socket.io");
-
+let io;
 const socketSetup = (server) => {
-  const io = socketio(server);
+  io = require("socket.io")(server, {
+    cors: {
+      origin: [
+        "https://172.16.0.210:3001",
+        "https://call-app-backend.vercel.app",
+        "http://localhost",
+        "http://localhost:4200",
+      ],
+      methods: ["GET", "PATCH", "POST", "HEAD", "OPTIONS"],
+    },
+  });
 
   let userCount = 0;
 
