@@ -7,6 +7,7 @@ const socketSetup = (server) => {
         "https://call-app-backend.vercel.app",
         "http://localhost",
         "http://localhost:4200",
+        "https://call-app-frontend.vercel.app"
       ],
       methods: ["GET", "PATCH", "POST", "HEAD", "OPTIONS"],
     },
