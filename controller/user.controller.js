@@ -4,6 +4,8 @@ const {
   createUserService,
   userFindOneService,
   userUpdateService,
+  getAllUsersService,
+  getUserChatHistoryService
 } = require("../services/user.service");
 
 const createUser = async (req, res) => {
@@ -74,4 +76,31 @@ const setAvatar = async (req, res) => {
   }
 };
 
-module.exports = { createUser, userLogin, setAvatar };
+const allusers = async (req, res) => {
+  try {
+    const users = await getAllUsersService(req);
+    
+    return sendResponse(res, 200, true, "User List", users);
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+};
+
+const chatHistory = async (req, res) => {
+  try {
+    const payload = {
+      fromUser: req.user._id,
+      toUser: req.params.toUser
+    }
+    const message = await getUserChatHistoryService(payload);
+    return sendResponse(res, 200, true, "", message);
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+}
+
+module.exports = { createUser, userLogin, setAvatar, allusers, chatHistory };

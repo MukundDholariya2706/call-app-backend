@@ -50,7 +50,7 @@ userSchema.methods.generateAuthToken = async function () {
     },
     process.env.API_SECRET,
     {
-      expiresIn: "1d",
+      expiresIn: "30d",
     }
   );
 
