@@ -5,7 +5,7 @@ const {
   userFindOneService,
   userUpdateService,
   getAllUsersService,
-  getUserChatHistoryService
+  getUserChatHistoryService,
 } = require("../services/user.service");
 
 const createUser = async (req, res) => {
@@ -44,12 +44,15 @@ const userLogin = async (req, res) => {
     }
 
     const token = await user.generateAuthToken();
+    let userData = await userUpdateService(user._id, {
+      isOnline: true,
+    });
 
-    user = user.toObject();
-    delete user.password;
+    userData = userData.toObject();
+    delete userData.password;
 
     return sendResponse(res, 200, true, "Login successfully", {
-      user,
+      userData,
       token,
     });
   } catch (error) {
@@ -79,7 +82,7 @@ const setAvatar = async (req, res) => {
 const allusers = async (req, res) => {
   try {
     const users = await getAllUsersService(req);
-    
+
     return sendResponse(res, 200, true, "User List", users);
   } catch (error) {
     return sendResponse(res, 500, false, "Something went worng!", {
@@ -92,8 +95,8 @@ const chatHistory = async (req, res) => {
   try {
     const payload = {
       fromUser: req.user._id,
-      toUser: req.params.toUser
-    }
+      toUser: req.params.toUser,
+    };
     const message = await getUserChatHistoryService(payload);
     return sendResponse(res, 200, true, "", message);
   } catch (error) {
@@ -101,6 +104,30 @@ const chatHistory = async (req, res) => {
       message: error.message,
     });
   }
-}
+};
 
-module.exports = { createUser, userLogin, setAvatar, allusers, chatHistory };
+const logoutUser = async (req, res) => {
+  try {
+    const user = req.user;
+
+    // set user to offline
+    await userUpdateService(user._id, {
+      isOnline: false,
+    });
+
+    return sendResponse(res, 200, true, "Logout successfully", null);
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+};
+
+module.exports = {
+  createUser,
+  userLogin,
+  setAvatar,
+  allusers,
+  chatHistory,
+  logoutUser,
+};

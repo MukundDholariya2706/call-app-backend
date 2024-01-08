@@ -35,6 +35,10 @@ let userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isOnline: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true, // Enable the timestamps option

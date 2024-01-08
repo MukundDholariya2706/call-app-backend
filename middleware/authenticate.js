@@ -36,6 +36,11 @@ let authenticate = async (req, res, next) => {
     req.user = user[0];
     next();
   } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      return sendResponse(res, 401, false, "Token expired", {
+        message: error.message,
+      });
+    }
     return sendResponse(res, 500, false, "Something went worng!", {
       message: error.message,
     });

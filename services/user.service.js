@@ -32,6 +32,7 @@ const getAllUsersService = async (req) => {
       "email",
       "username",
       "profileImage",
+      "isOnline"
     ]);
   } catch (error) {
     throw error;
