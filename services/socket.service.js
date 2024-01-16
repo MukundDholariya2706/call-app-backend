@@ -11,6 +11,7 @@ const socketSetup = (server) => {
         "https://call-app-frontend.vercel.app",
       ],
       methods: ["GET", "PATCH", "POST", "HEAD", "OPTIONS"],
+      transports: ["websocket"],
     },
   });
 
