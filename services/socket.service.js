@@ -49,7 +49,7 @@ const socketSetup = (server) => {
 
       socket.on("callInit", async (calledDetails) => {
         const { fromUser, toUser } = calledDetails;
-        
+
         socket.to(toUser?._id).emit("anyOneCalling", {
           callerDetails: fromUser,
           receiverDetails: toUser,
@@ -75,27 +75,29 @@ const socketSetup = (server) => {
           .to(toUser?._id)
           .emit("receiverPickUpCallEmit", { callPickUp: true });
       });
-    });
 
-    socket.on("ready", (roomName) => {
-      console.log("READY");
-      console.log(roomName, "roomName");
-      socket.to(roomName.reciverUser).emit("ready", roomName);
-    });
+      socket.on("ready", (roomName) => {
+        console.log("READY");
+        socket.to(roomName.reciverUser).emit("ready", roomName);
+      });
 
-    socket.on("candidate", ({ candidate, roomName }) => {
-      console.log("candidate");
-      socket.to(roomName).emit("candidate", candidate);
-    });
+      socket.on("candidate", (calledDetails) => {
+        console.log("candidate");
+        const { fromUser, toUser, candidate } = calledDetails;
+        socket.to(toUser?._id).emit("candidate", candidate);
+      });
 
-    socket.on("offer", ({ offer, roomName }) => {
-      console.log("OFFER");
-      socket.to(roomName).emit("offer", offer);
-    });
+      socket.on("offer", (calledDetails) => {
+        console.log("OFFER");
+        const { fromUser, toUser, offer } = calledDetails;
+        socket.to(toUser?._id).emit("offer", offer);
+      });
 
-    socket.on("answer", ({ answer, roomName }) => {
-      console.log("ANSWER");
-      socket.to(roomName).emit("answer", answer);
+      socket.on("answer", (calledDetails) => {
+        console.log("ANSWER");
+        const { fromUser, toUser, answer } = calledDetails;
+        socket.to(toUser?._id).emit("answer", answer);
+      });
     });
   });
 };
