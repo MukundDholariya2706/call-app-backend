@@ -99,6 +99,14 @@ const socketSetup = (server) => {
         const { fromUser, toUser, answer } = calledDetails;
         socket.to(toUser?._id).emit("answer", answer);
       });
+
+      socket.on("userConnect", (userData) => {
+        socket.broadcast.emit('userConnected', userData)
+      })
+
+      socket.on("userDisconnect", (userData) => {
+        socket.broadcast.emit('userDisconnected', userData)
+      })
     });
   });
 };
