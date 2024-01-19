@@ -38,6 +38,9 @@ let userSchema = new mongoose.Schema(
     isOnline: {
       type: Boolean,
       default: false
+    },
+    push_notification_endpoint: {
+      type: Object,
     }
   },
   {

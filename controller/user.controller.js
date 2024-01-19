@@ -7,6 +7,7 @@ const {
   getAllUsersService,
   getUserChatHistoryService,
 } = require("../services/user.service");
+const { sendPushNotification } = require("../services/push-notification.service");
 
 const createUser = async (req, res) => {
   try {
@@ -123,6 +124,33 @@ const logoutUser = async (req, res) => {
   }
 };
 
+const pushNotification = async (req, res) => {
+  try {
+    const user = req.user;
+    await userUpdateService(user._id, {
+      push_notification_endpoint: req.body,
+    });
+
+    return sendResponse(res, 200, true, "", null);
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+};
+
+const sendMessageToUser = async (req, res) => {
+  try {
+    const { fromUser, toUser, message } = req.body;
+    await sendPushNotification(fromUser, toUser, message);
+    return sendResponse(res, 200, true, "", null);
+  } catch (error) {
+    return sendResponse(res, 500, false, "Something went worng!", {
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
   createUser,
   userLogin,
@@ -130,4 +158,6 @@ module.exports = {
   allusers,
   chatHistory,
   logoutUser,
+  pushNotification,
+  sendMessageToUser
 };

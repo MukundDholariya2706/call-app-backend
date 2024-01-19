@@ -5,7 +5,9 @@ const {
   setAvatar,
   allusers,
   chatHistory,
-  logoutUser
+  logoutUser,
+  pushNotification,
+  sendMessageToUser
 } = require("../controller/user.controller");
 const { user_validator } = require("../validation/user.middleware");
 const { validatorFunc } = require("../services/bodyvalidator.service");
@@ -17,6 +19,8 @@ userRouter.post("/register", user_validator, validatorFunc, createUser);
 userRouter.post("/setavatar", authenticate, setAvatar);
 userRouter.get("/allusers", authenticate, allusers);
 userRouter.get("/chatHistory/:toUser", authenticate, chatHistory);
+userRouter.post('/pushNotification', authenticate, pushNotification);
+userRouter.post('/sendMessageToUser', authenticate, sendMessageToUser);
 userRouter.post("/logout", authenticate, logoutUser);
 
 module.exports = userRouter;

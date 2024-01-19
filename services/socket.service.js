@@ -8,7 +8,10 @@ const socketSetup = (server) => {
         "http://172.16.0.210:4200",
         "http://localhost",
         "http://localhost:4200",
+        "http://localhost:4201",
+        "http://127.0.0.1:4200",
         "https://call-app-frontend.vercel.app",
+        "http://172.20.10.4:4200",
       ],
       methods: ["GET", "PATCH", "POST", "HEAD", "OPTIONS"],
       transports: ["websocket"],
@@ -28,7 +31,6 @@ const socketSetup = (server) => {
     });
 
     socket.on("room", async (obj) => {
-      console.log(io.sockets.adapter.rooms, "total room");
       var rooms = io.sockets.adapter.rooms;
       var room = rooms.get(obj.id);
 
@@ -36,12 +38,11 @@ const socketSetup = (server) => {
 
       socket.on("sendMessage", async (messageObj) => {
         const { fromUser, toUser, message } = messageObj;
-        console.log("sendMessage", "sendMessage");
         try {
           const messaged = new ChatMessage({ fromUser, toUser, message });
-          await messaged.save();
-
           messaged.toUser = toUser;
+
+          await messaged.save();
           socket.to(toUser).emit("receiveMessage", messaged);
         } catch (error) {
           console.log(error, "error");
@@ -101,12 +102,12 @@ const socketSetup = (server) => {
       });
 
       socket.on("userConnect", (userData) => {
-        socket.broadcast.emit('userConnected', userData)
-      })
+        socket.broadcast.emit("userConnected", userData);
+      });
 
       socket.on("userDisconnect", (userData) => {
-        socket.broadcast.emit('userDisconnected', userData)
-      })
+        socket.broadcast.emit("userDisconnected", userData);
+      });
     });
   });
 };
