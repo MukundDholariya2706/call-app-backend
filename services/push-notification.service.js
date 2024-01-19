@@ -1,21 +1,14 @@
-const dotenv = require("dotenv");
 const webpush = require("web-push");
 const { userFindOneService } = require("./user.service");
 
-dotenv.config();
-
 const sendPushNotification = async (fromUser, toUser, message) => {
   try {
+    // const vapidKeys = webpush.generateVAPIDKeys(); // create public and private key
+
     const reciverUser = await userFindOneService({ _id: toUser });
-    const senderUser = await userFindOneService({_id: fromUser});
+    const senderUser = await userFindOneService({ _id: fromUser });
 
     if (!!reciverUser.push_notification_endpoint) {
-      webpush.setVapidDetails(
-        "mailto:mukunddtridhyatech@gmail.com",
-        process.env.webpushPublicKey,
-        process.env.webpushPrivateKey
-      );
-
       const payload = {
         notification: {
           data: {
@@ -27,8 +20,6 @@ const sendPushNotification = async (fromUser, toUser, message) => {
           vibrate: [100, 50, 100],
         },
       };
-
-      console.log(payload, 'payload');
 
       webpush.sendNotification(
         reciverUser.push_notification_endpoint,

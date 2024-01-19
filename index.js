@@ -7,12 +7,20 @@ const socketSetup = require("./services/socket.service");
 const RootRouter = require("./routes/route");
 const swagger = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.index");
+const webpush = require("web-push");
 
 dotenv.config();
 
 const PORT = process.env.PORT;
 
 const app = express();
+
+// setup web-notification
+webpush.setVapidDetails(
+  "mailto:mukunddtridhyatech@gmail.com",
+  process.env.webpushPublicKey,
+  process.env.webpushPrivateKey
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
