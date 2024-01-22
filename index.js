@@ -15,6 +15,8 @@ const PORT = process.env.PORT;
 
 const app = express();
 
+console.log(process.env.webpushPublicKey, "process.env.webpushPublicKey")
+
 // setup web-notification
 webpush.setVapidDetails(
   "mailto:mukunddtridhyatech@gmail.com",
