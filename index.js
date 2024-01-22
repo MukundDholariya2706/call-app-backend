@@ -11,15 +11,15 @@ const webpush = require("web-push");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
 const app = express();
 
 // setup web-notification
 webpush.setVapidDetails(
   "mailto:mukunddtridhyatech@gmail.com",
-  process.env.webpushPublicKey || "BIIuxA2Hv0Ol-XFXQe4Wkqtc7sP83dqxb2eECPj3zKpyc3kCXfNwg0ObiG5U4xNzlrw5DaKwC9reOL1G1NurXk8",
-  process.env.webpushPrivateKey || "_MvUbY6bBKXk49OUGCiXWc9B5Co75q7LY2R6rjFu1JQ"
+  process.env.webpushPublicKey,
+  process.env.webpushPrivateKey
 );
 
 app.use(express.json());

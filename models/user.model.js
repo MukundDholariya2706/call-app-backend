@@ -55,7 +55,7 @@ userSchema.methods.generateAuthToken = async function () {
       _id: user._id.toString(),
       role: user.role,
     },
-    process.env.API_SECRET || "callApp",
+    process.env.API_SECRET,
     {
       expiresIn: "30d",
     }
