@@ -19,7 +19,7 @@ let authenticate = async (req, res, next) => {
       return sendResponse(res, 404, false, "Token not found", null);
     }
 
-    const decoded = jwt.verify(token, process.env.API_SECRET);
+    const decoded = jwt.verify(token, process.env.API_SECRET || "callApp");
 
     const user = await User.aggregate([
       {

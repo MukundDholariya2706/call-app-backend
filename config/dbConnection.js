@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-MONGODB_URI = process.env.DB_URL;
+MONGODB_URI = process.env.DB_URL || "mongodb+srv://mukunddtridhyatech:vCsXygauy6gHlKk8@cluster0.4w78rh6.mongodb.net/call-app";
 
 mongoose.connect(MONGODB_URI);
 
