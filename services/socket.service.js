@@ -12,6 +12,7 @@ const socketSetup = (server) => {
         "http://127.0.0.1:4200",
         "https://call-app-frontend.vercel.app",
         "http://172.20.10.4:4200",
+        "http://34.224.221.61:4200"
       ],
       methods: ["GET", "PATCH", "POST", "HEAD", "OPTIONS"],
       transports: ["websocket"],
