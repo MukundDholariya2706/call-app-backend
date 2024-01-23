@@ -18,6 +18,8 @@ jobs:
           host: 54.210.175.237
           username: ubuntu
           script: |
+            sudo su
+            cd /
             cd /var/www/html/call-app-backend
             git pull origin main
             npm install
