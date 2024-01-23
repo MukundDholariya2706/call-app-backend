@@ -18,6 +18,8 @@ webpush.setVapidDetails(
   WEB_PUSH_PRIVATE_KEY
 );
 
+console.log('test')
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({ origin: "*" }));
