@@ -8,8 +8,9 @@ const RootRouter = require("./routes/route");
 const swagger = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.index");
 const webpush = require("web-push");
+const path = require("path");
 
-dotenv.config();
+dotenv.config({path: path.join(__dirname, '.env')});
 
 const PORT = process.env.PORT;
 

@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const path = require('path');
 const mongoose = require("mongoose");
 const sendResponse = require("../services/response.service");
 const User = require("../models/user.model");
 const ObjectId = mongoose.Types.ObjectId;
 
-dotenv.config();
+dotenv.config({path: path.join(__dirname, '..', '.env')});
 
 let authenticate = async (req, res, next) => {
   try {
