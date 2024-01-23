@@ -7,15 +7,15 @@ const RootRouter = require("./routes/route");
 const swagger = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.index");
 const webpush = require("web-push");
-const { PORT, webpushPublicKey, webpushPrivateKey } = require("./environment/environment");
+const { PORT, WEB_PUSH_PUBLIC_KEY, WEB_PUSH_PRIVATE_KEY } = require("./environment/environment");
 
 const app = express();
 
 // setup web-notification
 webpush.setVapidDetails(
   "mailto:mukunddtridhyatech@gmail.com",
-  webpushPublicKey,
-  webpushPrivateKey
+  WEB_PUSH_PUBLIC_KEY,
+  WEB_PUSH_PRIVATE_KEY
 );
 
 app.use(express.json());

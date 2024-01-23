@@ -7,6 +7,6 @@ module.exports = {
     PORT: process.env.PORT,
     DB_URL: process.env.DB_URL,
     API_SECRET: process.env.API_SECRET,
-    webpushPublicKey: process.env.webpushPublicKey,
-    webpushPrivateKey: process.env.webpushPrivateKey
+    WEB_PUSH_PUBLIC_KEY: process.env.WEB_PUSH_PUBLIC_KEY,
+    WEB_PUSH_PRIVATE_KEY: process.env.WEB_PUSH_PRIVATE_KEY
 }
