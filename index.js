@@ -2,25 +2,20 @@ require("./config/dbConnection");
 const http = require("http");
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const socketSetup = require("./services/socket.service");
 const RootRouter = require("./routes/route");
 const swagger = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.index");
 const webpush = require("web-push");
-const path = require("path");
-
-dotenv.config({path: path.join(__dirname, '.env')});
-
-const PORT = process.env.PORT;
+const { PORT, webpushPublicKey, webpushPrivateKey } = require("./environment/environment");
 
 const app = express();
 
 // setup web-notification
 webpush.setVapidDetails(
   "mailto:mukunddtridhyatech@gmail.com",
-  process.env.webpushPublicKey,
-  process.env.webpushPrivateKey
+  webpushPublicKey,
+  webpushPrivateKey
 );
 
 app.use(express.json());

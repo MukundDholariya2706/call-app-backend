@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
-const path = require('path');
-
-dotenv.config({path: path.join(__dirname, '..', '.env')});
+const { API_SECRET } = require("../environment/environment");
 
 let userSchema = new mongoose.Schema(
   {
@@ -56,7 +53,7 @@ userSchema.methods.generateAuthToken = async function () {
       _id: user._id.toString(),
       role: user.role,
     },
-    process.env.API_SECRET,
+    API_SECRET,
     {
       expiresIn: "30d",
     }

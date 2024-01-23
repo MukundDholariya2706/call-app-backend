@@ -1,12 +1,9 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
-const path = require('path');
 const mongoose = require("mongoose");
 const sendResponse = require("../services/response.service");
 const User = require("../models/user.model");
+const { API_SECRET } = require("../environment/environment");
 const ObjectId = mongoose.Types.ObjectId;
-
-dotenv.config({path: path.join(__dirname, '..', '.env')});
 
 let authenticate = async (req, res, next) => {
   try {
@@ -20,7 +17,7 @@ let authenticate = async (req, res, next) => {
       return sendResponse(res, 404, false, "Token not found", null);
     }
 
-    const decoded = jwt.verify(token, process.env.API_SECRET);
+    const decoded = jwt.verify(token, API_SECRET);
 
     const user = await User.aggregate([
       {
